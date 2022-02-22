@@ -20,7 +20,7 @@ Aadhaar Offline is the only valid method to submit your Aadhaar identity to any 
 4. Once the details entered are authenticated, the Aadhaar details are recieved
 
 ## Minimum Requirements
-- `minSdkVersion 26` 
+- `minSdkVersion 21` 
 - `AndroidX`
 
 ## Getting Started
