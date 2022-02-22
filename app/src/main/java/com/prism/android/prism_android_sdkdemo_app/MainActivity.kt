@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
                 },"https://en3yadd32v3d97l.m.pipedream.net/","https://en3yadd32v3d97l.m.pipedream.net/")
             //Diglocker sucess and failure url
-            prism.addConfig(Config(KYC_FIRSTFLOW, KYC_SECONDFLOW))
+            prism.addConfig(Config(KYC_FIRSTFLOW, KYC_SECONDFLOW,DIGILOCKERFLOW))
             prism.beginKYCFLow()
         }
 
