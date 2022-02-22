@@ -2,18 +2,24 @@
 Enables your user to download compliant UIDAI Aadhaar XML inside your existing Android App
 
 This SDK (Android) provides a set of screens and functionality to let your user download their Aadhaar XML inside your Android Application itself. This reduces customer drop off as they do not need to navigate to UIDAI Aadhaar Website to download the same.
-Aadhaar Offline is the only valid method to submit your Aadhaar identity to any RBI Regulated Entity in order to complete KYC. [inVOID](https://www.invoid.co) SDK/[API](https://api.invoid.co) provides an easy to use Verification suite which will enable the most seamless customer onboarding.
+Aadhaar Offline is the only valid method to submit your Aadhaar identity to any RBI Regulated Entity in order to complete KYC. The Bureau SDK provides an easy to use Verification suite which will enable the most seamless customer onboarding.
 
 ## Steps in the SDK
+**For the Aadhaar Flow**
 1. User is guided to the UIDAI website to download the paperless e-KYC (Aadhaar .xml)
 2. Inputs for "Aadhaar Number" & Captcha are filled by the end user.
 3. On continuing
-    - [x] User is prompted to enter a temporary pin (share code) in order to encrypt the to be downloaded xml using a password.
     - [x] An OTP is received by the end user which is then auto read by the SDK. The inVOID SDK only reads the then received OTP message through the screen.
 4. Once the details entered are authenticated, the Aadhaar .xml is downloaded in a .zip which is password(share code) protected
+**For Digilocker Flow**
+1. User is guided to the Digilocker website to submit their Aadhaar details.
+2. Input for "Aadhaar Number" are filled by the end user.
+3. On continuing
+    - [x] An OTP is received by the end user which is then auto read by the SDK. The inVOID SDK only reads the then received OTP message through the screen.
+4. Once the details entered are authenticated, the Aadhaar details are recieved
 
 ## Minimum Requirements
-- `minSdkVersion 19` 
+- `minSdkVersion 21` 
 - `AndroidX`
 
 ## Getting Started
@@ -23,8 +29,9 @@ Add following lines in your root ```build.gradle```
 allprojects {
     repositories {
         ...
-        maven { url "https://jitpack.io" }
-        maven { url "https://gitlab.com/api/v4/projects/24251481/packages/maven" }
+        maven { url "https://jitpack.io" 
+        //add credentials here
+        }
     }
 }
 ```
@@ -40,7 +47,7 @@ android {
 }
 dependencies {
     ....
-    implementation 'co.invoid.android:offlineaadhaar:1.0.6'
+       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.20.0'
 }
 ```
 
@@ -49,23 +56,40 @@ This library also uses some common android libraries. So if you are not already 
 
 ## Initialize SDK
 
-```
-yourinitbutton.setOnClickListener(new View.OnClickListener() {
+```     //Create prism object
+        PrismEntryPoint prism;
+        
+        yourinitbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            
-            //Share code entering enable
-                OfflineAadhaarHelper.with(YourActivity.this, "Your Company Name to be displayed to the user while doing the process ", "YourAuthkey", "cust ID", "user ID").start();
+            //instantiate your prism 
+            prism = PrismInstanceProvider.getInstance(context,activity)
+            //Initialize your prism
+               prism.initialize(your merchantId,your user id,
+                new PrismCallBack(){
+
+                    @Override
+                    public void onKYCFinished(Client aadhaarData, String methodname, Boolean isSuccess) {
+                               Log.w("TAG",aadhaarData?.jsonString.toString())
+                    }
+                }
+               ,your success redirection url,your failure redirection url)
                 
-            //Share code entering disabled. Share code is prefilled.    
-                OfflineAadhaarHelper.with(YourActivity.this,  "Your Company Name to be displayed to the user while doing the process ", "YourAuthkey", "cust ID", "user ID")
-                    .prefillShareCode("Share code you want to set").start();
+            //Adding config to priortize the flows by which Aadhaar data is to be taken    
+                prism.addConfig(Config(KYC_FIRSTFLOW, KYC_SECONDFLOW,DIGILOCKERFLOW))
+                //The above order of methods can be rearranged based on priority
+           //KYC initiate call
+           prism.beginKYCFLow()
             }
         });
 ```
+## Aadhaar Fetching Methods
+1.KYC_FIRSTFLOW
+2.KYC_SECONDFLOW
+3.DIGILOCKERFLOW
 
 ## Authorization 
-To Obtain your organisation's authkey, contact us at hello@invoid.co
+To Obtain your organisation's merchantId and user id, contact Bureau
 
 ## Customization 
 - To customize the theme of the activity use following theme in your `styles.xml` file
@@ -105,35 +129,22 @@ To Obtain your organisation's authkey, contact us at hello@invoid.co
 - zip file uri
 - share code to open zip file
 - processedJSON
-- Error result
 
 ```
-@Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == OfflineAadhaarHelper.AADHAAR_DATA_REQ_CODE) {
-            if(resultCode == Activity.RESULT_OK) {
-                if (data != null) {
-                    AadhaarData aadhaarData = data.getParcelableExtra(OfflineAadhaarHelper.AADHAAR_DATA);
-                    Log.d(TAG, "onActivityResult: json: "+aadhaarData.getJsonString());
-                    Log.d(TAG, "onActivityResult: file uri: "+aadhaarData.getXmlFileUri().toString());
-                    Log.d(TAG, "onActivityResult: zip file uri: "+aadhaarData.getZipFileUri().toString());
-                    Log.d(TAG, "onActivityResult: share code: "+aadhaarData.getShareCode.toString());
+The PrismCallBack added in the initialize function retruns the data of Aadhaar 
+
+new PrismCallBack(){
+
+                    @Override
+                    public void onKYCFinished(Client aadhaarData, String methodname, Boolean isSuccess) {
+                               Log.w("Aadhaar Xml",aadhaarData.jsonString.toString())
+                               Log.w("XMLURI",aadhaarData.xmlFileUri.toString())
+                               Log.w("ZIPURI",aadhaarData.zipFileUri.toString())
+                               Log.w("ZIPURI",aadhaarData.shareCode.toString())
+                               Log.w("Excecuted Fetching Method",methodname.toString())
+                               Log.w("Aadhaar Fetched Status","" + isSuccess)
+                    }
                 }
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                Log.d(TAG, "onActivityResult: cancelled by user");
-                
-            } else if(resultCode == OfflineAadhaarHelper.INTERNET_ERROR) {
-                Log.d(TAG, "onActivityResult: internet error");
-                
-            } else if(resultCode == OfflineAadhaarHelper.INVOID_AUTH_ERROR) {
-                Log.d(TAG, "onActivityResult: not authorized to use this SDK");
-                
-            } else if(resultCode == OfflineAadhaarHelper.UIDAI_ERROR) {
-                Log.d(TAG, "onActivityResult: UIDAI Site error");
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
+
 ```
 
