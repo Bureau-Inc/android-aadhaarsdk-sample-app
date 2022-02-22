@@ -62,8 +62,10 @@ This library also uses some common android libraries. So if you are not already 
         yourinitbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            
             //instantiate your prism 
             prism = PrismInstanceProvider.getInstance(context,activity)
+            
             //Initialize your prism
                prism.initialize(your merchantId,your user id,
                 new PrismCallBack(){
@@ -77,7 +79,9 @@ This library also uses some common android libraries. So if you are not already 
                 
             //Adding config to priortize the flows by which Aadhaar data is to be taken    
                 prism.addConfig(Config(KYC_FIRSTFLOW, KYC_SECONDFLOW,DIGILOCKERFLOW))
+                
                 //The above order of methods can be rearranged based on priority
+                
            //KYC initiate call
            prism.beginKYCFLow()
             }
