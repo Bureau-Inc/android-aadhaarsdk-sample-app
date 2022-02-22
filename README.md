@@ -11,6 +11,7 @@ Aadhaar Offline is the only valid method to submit your Aadhaar identity to any 
 3. On continuing
     - [x] An OTP is received by the end user which is then auto read by the SDK. The inVOID SDK only reads the then received OTP message through the screen.
 4. Once the details entered are authenticated, the Aadhaar .xml is downloaded in a .zip which is password(share code) protected
+
 **For Digilocker Flow**
 1. User is guided to the Digilocker website to submit their Aadhaar details.
 2. Input for "Aadhaar Number" are filled by the end user.
