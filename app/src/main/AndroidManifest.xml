@@ -10,6 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PrismSampleApp">
+        <meta-data
+            android:name="com.mixpanel.android.MPConfig.DisableViewCrawler"
+            android:value="true"/>
         <activity
             android:name="com.prism.android.prism_android_sdkdemo_app.MainActivity"
             android:exported="true">
