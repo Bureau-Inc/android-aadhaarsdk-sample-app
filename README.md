@@ -48,7 +48,7 @@ android {
 }
 dependencies {
     ....
-       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.21.0'
+       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.25.0'
 }
 ```
 
