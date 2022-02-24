@@ -16,8 +16,8 @@ Aadhaar Offline is the only valid method to submit your Aadhaar identity to any 
 1. User is guided to the Digilocker website to submit their Aadhaar details.
 2. Input for "Aadhaar Number" are filled by the end user.
 3. On continuing
-    - [x] An OTP is received by the end user which is then auto read by the SDK. The inVOID SDK only reads the then received OTP message through the screen.
-4. Once the details entered are authenticated, the Aadhaar details are recieved
+    - [x] An OTP is received by the end user which should be entered in the next page.
+4. Once the details entered are authenticated, the Aadhaar details are recieved.
 
 ## Minimum Requirements
 - `minSdkVersion 21` 
@@ -76,7 +76,7 @@ This library also uses some common android libraries. So if you are not already 
                                Log.w("TAG",aadhaarData?.jsonString.toString())
                     }
                 }
-               ,your success redirection url,your failure redirection url)
+               ,your success redirection url,your failure redirection url,a boolean to indicate whether flow should be run on production configuration)
                 
             //Adding config to priortize the flows by which Aadhaar data is to be taken    
                 prism.addConfig(Config(KYC_FIRSTFLOW, KYC_SECONDFLOW,DIGILOCKERFLOW))
