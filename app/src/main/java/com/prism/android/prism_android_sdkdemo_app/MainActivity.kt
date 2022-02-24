@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.button1).setOnClickListener {
  prism = PrismInstanceProvider.getInstance(this,this)
-            prism.initialize("auth0|61dfbb6dfd33420071be7021","user123_random-8283",
+            prism.initialize("auth0|6215d57ce2b178006ac73777","user123_random-8283",
                 object : PrismCallBack {
                     override fun onKYCFinished(
                         aadhaarData: ClientAadhaarData?,
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.button2).setOnClickListener {
             prism = PrismInstanceProvider.getInstance(this,this)
-            prism.initialize("auth0|61dfbb6dfd33420071be7021","user123_random-8283",
+            prism.initialize("auth0|6215d57ce2b178006ac73777","user123_random-8283",
                 object : PrismCallBack {
                     override fun onKYCFinished(
                         aadhaarData: ClientAadhaarData?,
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.button3).setOnClickListener {
             prism = PrismInstanceProvider.getInstance(this,this)
-            prism.initialize("auth0|61dfbb6dfd33420071be7021","user123_random-8283",
+            prism.initialize("auth0|6215d57ce2b178006ac73777","user123_random-8283",
                 object : PrismCallBack {
                     override fun onKYCFinished(
                         aadhaarData: ClientAadhaarData?,
