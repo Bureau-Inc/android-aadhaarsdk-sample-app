@@ -48,7 +48,7 @@ android {
 }
 dependencies {
     ....
-       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.31.0'
+       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.32.0'
 }
 ```
 
@@ -86,7 +86,7 @@ You might need to add the following code to the application tag in Android Manif
                ,your success redirection url,your failure redirection url,a boolean to indicate whether flow should be run on production configuration)
                 
             //Adding config to priortize the flows by which Aadhaar data is to be taken    
-                prism.addConfig(new Config(residentUidaiAadhaarFlow, myAadhaarUidaiFlow,digilockerFLow))
+                prism.addConfig(new Config(residentUidaiAadhaarFlow, myAadhaarUidaiFlow,digilockerFlow))
                 
                 //The above order of methods can be rearranged based on priority
                 
@@ -98,7 +98,7 @@ You might need to add the following code to the application tag in Android Manif
 ## Aadhaar Fetching Methods
 ### 1.residentUidaiAadhaarFlow - URL : "https://resident.uidai.gov.in/offline-kyc"
 ### 2.myAadhaarUidaiFlow - URL : "https://myaadhaar.uidai.gov.in/"
-### 3.digilockerFLow
+### 3.digilockerFlow
 
 ## Authorization 
 To Obtain your organisation's merchantId and user id, contact Bureau
@@ -153,20 +153,23 @@ new PrismCallBack(){
                                {
                                     //Write your success logic here
                                     //the object aadhaar data contains the details
-                                    if(methodname==digilockerFLow)
+                                    if(methodname==digilockerFlow)
                                     {
                                     //Make the backend API call to get digilocker data
                                     }
                                     else
                                     {
-                                    Log.w("Aadhaar Data", aadhaarData.jsonString.ToString())
+                                    Log.d("Aadhaar Data", aadhaarData.jsonString.ToString())
+                                    Log.d("XML File Uri", aadhaarData.xmlFileUri().toString());
+                                    Log.d("Aadhaar Data", aadhaarData.zipFileUri().toString());
+                                    Log.d("Aadhaar Data", aadhaarData.shareCode.toString());
                                     }
                                }
                                else
                                {
                                      //Write your failure logic here
                                      //You can call another method by reinitializing config and calling beginKYCFlow() as shown below
-                                   prism.addConfig(new Config(myAadhaarUidaiFlow,residentUidaiAadhaarFlow,digilockerFLow))
+                                   prism.addConfig(new Config(myAadhaarUidaiFlow,residentUidaiAadhaarFlow,digilockerFlow))
                                    prism.beginKYCFLow()
                                }
                     }
