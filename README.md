@@ -17,7 +17,8 @@ Aadhaar Offline is the only valid method to submit your Aadhaar identity to any 
 2. Input for "Aadhaar Number" are filled by the end user.
 3. On continuing
     - [x] An OTP is received by the end user which should be entered in the next page.
-4. Once the details entered are authenticated, the Aadhaar details are recieved.
+4. Once the details entered are authenticated, the Aadhaar details are recieved by bureau backend server. 
+5. App backend server will make an API call to bureau backend server and fetch the details of the user.  
 
 ## Minimum Requirements
 - `minSdkVersion 21` 
@@ -96,12 +97,15 @@ You might need to add the following code to the application tag in Android Manif
         });
 ```
 ## Aadhaar Fetching Methods
-### 1.residentUidaiAadhaarFlow - URL : "https://resident.uidai.gov.in/offline-kyc"
-### 2.myAadhaarUidaiFlow - URL : "https://myaadhaar.uidai.gov.in/"
-### 3.digilockerFlow
+### 1.residentUidaiAadhaarFlow - URL : "https://resident.uidai.gov.in/offline-kyc" - Data available in SDK 
+### 2.myAadhaarUidaiFlow - URL : "https://myaadhaar.uidai.gov.in/" - Data available in SDK 
+### 3.digilockerFlow - Data available in backend API call. 
 
 ## Authorization 
-To Obtain your organisation's merchantId and user id, contact Bureau
+To Obtain your organisation's merchantId contact Bureau. 
+
+## UserTracking 
+UserId can be used to call Bureau backend API to fetch data regarding user. It should be unique string in nature. For each KYC flow the userId should be uniquely generated. 
 
 ## Customization 
 - To customize the theme of the activity use following theme in your `styles.xml` file
@@ -142,8 +146,9 @@ To Obtain your organisation's merchantId and user id, contact Bureau
 - share code to open zip file
 - processedJSON
 
-```
 The PrismCallBack added in the initialize function retruns whether the we have successfuly fetched details or not 
+
+```
 
 new PrismCallBack(){
 
@@ -175,8 +180,30 @@ new PrismCallBack(){
                     }
                 }
                 
+
+```
+
 When Aadhaar fetch is successful the callback returns the isSuccess boolean as true and when a failure happens the callback returns the isSuccess boolean as false along with the methodName. 
 By monitoring the method name we can identify which method was used to fetch the Aadhaar details.                  
 
+
+## Backend API call to get data for a user completing the digilocker flow
+
+UserId and AuthHeader will have to be replaced in the requests below. 
+
+In staging 
+
 ```
+curl --location --request GET 'https://api.overwatch.stg.bureau.id/v1/id/UserId/suppliers/offline-aadhaar' \
+--header 'Authorization: Basic AuthHeader'
+
+```
+In production 
+
+```
+curl --location --request GET 'https://api.overwatch.bureau.id/v1/id/UserId/suppliers/offline-aadhaar' \
+--header 'Authorization: Basic AuthHeader'
+
+```
+
 
