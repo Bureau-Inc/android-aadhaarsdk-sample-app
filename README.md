@@ -165,7 +165,7 @@ new PrismCallBack(){
                     }
                 }
                 
-When Aadhaar fetch is succesfull the callback returns the isSuccess boolean as true and when a failure happens the callback returns an isSuccess boolean as false along with the methodname. 
+When Aadhaar fetch is successful the callback returns the isSuccess boolean as true and when a failure happens the callback returns an isSuccess boolean as false along with the methodname. 
 By monitoring the method name we can identify which method was used to fetch the Aadhaar details.                  
 
 ```
