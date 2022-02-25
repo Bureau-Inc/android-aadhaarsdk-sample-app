@@ -1,8 +1,8 @@
 # prism-android-sdk-demo-app
 Enables your user to download compliant UIDAI Aadhaar XML inside your existing Android App
 
-This SDK (Android) provides a set of screens and functionality to let your user download their Aadhaar XML inside your Android Application itself. This reduces customer drop off as they do not need to navigate to UIDAI Aadhaar Website to download the same.
-Aadhaar Offline is the only valid method to submit your Aadhaar identity to any RBI Regulated Entity in order to complete KYC. The Bureau SDK provides an easy to use Verification suite which will enable the most seamless customer onboarding.
+This SDK (Android) provides a set of screens and functionality to let your user download their Aadhaar XML inside your Android Application itself or use digilocker flow and get information through a backend API call. This reduces customer drop off as they do not need to navigate to UIDAI Aadhaar Website to download the same.
+Aadhaar Offline or digilocker is the only valid method to submit your Aadhaar identity to any RBI Regulated Entity in order to complete KYC. The Prism SDK provides an easy to use Verification suite which will enable the most seamless customer onboarding.
 
 ## Steps in the SDK
 **For the Aadhaar Flow**
@@ -129,7 +129,7 @@ To Obtain your organisation's merchantId and user id, contact Bureau
     <string name="invoid_check_internet_error">Please check your internet connection</string>
     ```
 
-## Response returned from the SDK
+## Response returned from the SDK in case of offline Aadhaar
 - xml file uri
 - zip file uri
 - share code to open zip file
@@ -152,4 +152,13 @@ new PrismCallBack(){
                 }
 
 ```
+## Response returned from the backend API call in case of offline Aadhaar or Digilocker
+```
+
+curl --location --request GET 'https://api.overwatch.stg.bureau.id/v1/id/USERID/suppliers/offline-aadhaar' \
+--header 'Authorization: Basic AuthHeader'
+
+```
+
+USERID should be replaced depending on the value supplied during initialization of the SDK.
 
