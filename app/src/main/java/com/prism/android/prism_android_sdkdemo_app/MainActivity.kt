@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
                 },"https://en3yadd32v3d97l.m.pipedream.net/","https://en3yadd32v3d97l.m.pipedream.net/",false)
             //Diglocker sucess and failure url
-            prism.addConfig(Config(residentUidaiAadhaarFlow, myAadhaarUidaiFlow, digilockerFLow))
+            prism.addConfig(Config(residentUidaiAadhaarFlow, myAadhaarUidaiFlow, digilockerFlow))
             prism.beginKYCFLow()
         }
 
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
                 },"https://en3yadd32v3d97l.m.pipedream.net/","https://en3yadd32v3d97l.m.pipedream.net/",false)
             //Diglocker sucess and failure url
-            prism.addConfig(Config(digilockerFLow, myAadhaarUidaiFlow))
+            prism.addConfig(Config(digilockerFlow, myAadhaarUidaiFlow))
             prism.beginKYCFLow()
         }
 
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
                 },"https://en3yadd32v3d97l.m.pipedream.net/","https://en3yadd32v3d97l.m.pipedream.net/",false)
             //Diglocker sucess and failure url
-            prism.addConfig(Config(myAadhaarUidaiFlow, digilockerFLow))
+            prism.addConfig(Config(myAadhaarUidaiFlow, digilockerFlow))
             prism.beginKYCFLow()
         }
 
