@@ -54,6 +54,12 @@ dependencies {
 
 This library also uses some common android libraries. So if you are not already using them then make sure you add these libraries to your module level `build.gradle`
 - `androidx.appcompat:appcompat:1.2.0`
+You might need to add the following code to the application tag in Android Manifest file if Mixpanel View Crawler error shows up
+....
+<meta-data
+            android:name="com.mixpanel.android.MPConfig.DisableViewCrawler"
+            android:value="true"/>
+....            
 
 ## Initialize SDK
 
