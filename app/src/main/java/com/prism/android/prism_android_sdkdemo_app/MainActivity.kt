@@ -11,6 +11,7 @@ import com.prism.android.prismandroidnativesdk.PrismCallBack
 import com.prism.android.prismandroidnativesdk.PrismEntryPoint
 import com.prism.android.prismandroidnativesdk.PrismInstanceProvider
 import com.prism.android.prismandroidnativesdk.models.*
+import com.prism.android.prismandroidnativesdk.utils.*
 import com.prism.android.prismsampleapp.R
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +29,23 @@ class MainActivity : AppCompatActivity() {
                     methodName: String?,
                     isSuccess: Boolean?,errorType:String
                 ) {
+                    if(!errorType.isNullOrEmpty())
+                    {
+                        if(errorType== ENDPOINTS_DOWN)
+                          Log.w("Aadhaar Error","No endpoints Available")
+                        else if(errorType== INVOID_AUTH_ERROR)
+                            Log.w("Aadhaar Error","Not authorized")
+                        else if(errorType== DIGILOCKER_ERROR)
+                            Log.w("Aadhaar Error","Digilocker Site error")
+                        else if(errorType== UIDAI_ERROR)
+                            Log.w("Aadhaar Error","UIDAI Site Error")
+                        else if(errorType== INTERNET_ERROR)
+                            Log.w("Aadhaar Error","Intenet Error")
+                        else if(errorType== SDK_ERROR)
+                            Log.w("Aadhaar Error","SDK Error")
+                        else if(errorType== USER_CANCELLED)
+                            Log.w("Aadhaar Error","Cancelled by user")
+                    }
                     if(isSuccess==true)
                         Log.w("TAG",aadhaarData?.jsonString.toString())
                     else
