@@ -1,5 +1,5 @@
 # prism-android-sdk-demo-app
-Enables your user to download compliant UIDAI Aadhaar XML inside your existing Android App using offline aadhaar verification as well allow digilocker verification method. 
+Enables your user to download compliant UIDAI Aadhaar XML inside your existing Android App using offline aadhaar verification as well allows for digilocker verification method. 
 
 This SDK (Android) provides a set of screens and functionality to let your user complete Android Application itself. This reduces customer drop off as they do not need to navigate to UIDAI Aadhaar Website to download the same.
 
