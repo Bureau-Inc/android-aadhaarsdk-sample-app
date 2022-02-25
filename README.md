@@ -50,7 +50,7 @@ android {
 }
 dependencies {
     ....
-       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.33.0'
+       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.35.0'
 }
 ```
 
@@ -76,18 +76,18 @@ You might need to add the following code to the application tag in Android Manif
             //instantiate your prism 
             prism = PrismInstanceProvider.getInstance(context,activity);
             
-            //Initialize your prism
+            //Initialize your prism only once
                prism.initialize(your merchantId,your user id,
                 new PrismCallBack(){
 
                     @Override
-                    public void onKYCFinished(ClientAadhaarData aadhaarData, String methodName, Boolean isSuccess) {
-                               Log.w("TAG",aadhaarData.getJsonString.toString())
+                    public void onKYCFinished(ClientAadhaarData aadhaarData, String methodName, Boolean isSuccess,String errorType) {
+                               Log.w("Aadhaar Data",aadhaarData.getJsonString.toString())
                     }
                 }
                ,your success redirection url,your failure redirection url,a boolean to indicate whether flow should be run on production configuration);
                 
-            //Adding config to priortize the flows by which Aadhaar data is to be taken    
+            //Adding config to priortize the flows by which Aadhaar data is to be taken can be added multiple times    
                 prism.addConfig(new Config(residentUidaiAadhaarFlow, myAadhaarUidaiFlow,digilockerFlow));
                 
                 //The above order of methods can be rearranged based on priority
@@ -147,18 +147,19 @@ UserId can be used to call Bureau backend API to fetch data regarding user. It s
 - share code to open zip file
 - processedJSON
 
-The PrismCallBack added in the initialize function retruns whether the we have successfuly fetched details or not 
+The PrismCallBack added in the initialize function retrun's whether we have successfuly fetched details or not 
 
 ```
 
 new PrismCallBack(){
 
                     @Override
-                    public void onKYCFinished(ClientAadhaarData aadhaarData, String methodName, Boolean isSuccess) {
+                    public void onKYCFinished(ClientAadhaarData aadhaarData, String methodName, Boolean isSuccess,String errorType) {
                                if(isSuccess)
                                {
                                     //Write your success logic here
                                     //the object aadhaar data contains the details
+                                    //errorType will be empty here
                                     if(methodName==digilockerFlow)
                                     {
                                     //Make the backend API call to get digilocker data
@@ -172,7 +173,24 @@ new PrismCallBack(){
                                     }
                                }
                                else
-                               {
+                               {     //Check errorType here
+                                      if(errorType== ENDPOINTS_DOWN)
+                                        Log.w("Aadhaar Error","No endpoints Available")
+                                      else if(errorType== INVOID_AUTH_ERROR)
+                                        Log.w("Aadhaar Error","Not authorized")
+                                      else if(errorType== DIGILOCKER_ERROR)
+                                        Log.w("Aadhaar Error","Digilocker Site error")
+                                      else if(errorType== UIDAI_ERROR)
+                                        Log.w("Aadhaar Error","UIDAI Site Error")
+                                      else if(errorType== INTERNET_ERROR)
+                                        Log.w("Aadhaar Error","Intenet Error")
+                                      else if(errorType== SDK_ERROR)
+                                        Log.w("Aadhaar Error","SDK Error")
+                                      else if(errorType== USER_CANCELLED)
+                                         Log.w("Aadhaar Error","Cancelled by user")
+                                         
+                                         
+                            
                                      //Write your failure logic here
                                      //You can call another method by reinitializing config and calling beginKYCFlow() as shown below
                                    prism.addConfig(new Config(myAadhaarUidaiFlow,residentUidaiAadhaarFlow,digilockerFlow));
