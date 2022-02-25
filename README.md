@@ -79,7 +79,7 @@ You might need to add the following code to the application tag in Android Manif
                 new PrismCallBack(){
 
                     @Override
-                    public void onKYCFinished(ClientAadhaarData aadhaarData, String methodname, Boolean isSuccess) {
+                    public void onKYCFinished(ClientAadhaarData aadhaarData, String methodName, Boolean isSuccess) {
                                Log.w("TAG",aadhaarData?.jsonString.toString())
                     }
                 }
@@ -148,12 +148,12 @@ The PrismCallBack added in the initialize function retruns whether the we have s
 new PrismCallBack(){
 
                     @Override
-                    public void onKYCFinished(ClientAadhaarData aadhaarData, String methodname, Boolean isSuccess) {
+                    public void onKYCFinished(ClientAadhaarData aadhaarData, String methodName, Boolean isSuccess) {
                                if(isSuccess)
                                {
                                     //Write your success logic here
                                     //the object aadhaar data contains the details
-                                    if(methodname==digilockerFlow)
+                                    if(methodName==digilockerFlow)
                                     {
                                     //Make the backend API call to get digilocker data
                                     }
@@ -175,7 +175,7 @@ new PrismCallBack(){
                     }
                 }
                 
-When Aadhaar fetch is successful the callback returns the isSuccess boolean as true and when a failure happens the callback returns the isSuccess boolean as false along with the methodname. 
+When Aadhaar fetch is successful the callback returns the isSuccess boolean as true and when a failure happens the callback returns the isSuccess boolean as false along with the methodName. 
 By monitoring the method name we can identify which method was used to fetch the Aadhaar details.                  
 
 ```
