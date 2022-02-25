@@ -25,12 +25,13 @@ class MainActivity : AppCompatActivity() {
                         methodname: String?,
                         isSuccess: Boolean?
                     ) {
-                         Log.w("TAG",aadhaarData?.jsonString.toString())
+                        if(isSuccess==true)
+                            Log.w("TAG",aadhaarData?.jsonString.toString())
                     }
 
                 },"https://en3yadd32v3d97l.m.pipedream.net/","https://en3yadd32v3d97l.m.pipedream.net/",false)
             //Diglocker sucess and failure url
-            prism.addConfig(Config(KYC_FIRSTFLOW, KYC_SECONDFLOW,DIGILOCKERFLOW))
+            prism.addConfig(Config(residentUidaiAadhaarFlow, myAadhaarUidaiFlow, digilockerFLow))
             prism.beginKYCFLow()
         }
 
@@ -43,12 +44,13 @@ class MainActivity : AppCompatActivity() {
                         methodname: String?,
                         isSuccess: Boolean?
                     ) {
+                        if(isSuccess==true)
                         Log.w("TAG",aadhaarData?.jsonString.toString())
                     }
 
                 },"https://en3yadd32v3d97l.m.pipedream.net/","https://en3yadd32v3d97l.m.pipedream.net/",false)
             //Diglocker sucess and failure url
-            prism.addConfig(Config(DIGILOCKERFLOW, KYC_SECONDFLOW))
+            prism.addConfig(Config(digilockerFLow, myAadhaarUidaiFlow))
             prism.beginKYCFLow()
         }
 
@@ -61,12 +63,13 @@ class MainActivity : AppCompatActivity() {
                         methodname: String?,
                         isSuccess: Boolean?
                     ) {
-                        Log.w("TAG",aadhaarData?.jsonString.toString())
+                        if(isSuccess==true)
+                            Log.w("TAG",aadhaarData?.jsonString.toString())
                     }
 
                 },"https://en3yadd32v3d97l.m.pipedream.net/","https://en3yadd32v3d97l.m.pipedream.net/",false)
             //Diglocker sucess and failure url
-            prism.addConfig(Config(KYC_SECONDFLOW, DIGILOCKERFLOW))
+            prism.addConfig(Config(myAadhaarUidaiFlow, digilockerFLow))
             prism.beginKYCFLow()
         }
 
