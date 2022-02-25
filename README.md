@@ -158,14 +158,14 @@ new PrismCallBack(){
                                else
                                {
                                      //Write your failure logic here
-                                     //You can call another method by reinitializing config and calling beginKYCFlow() shown below
+                                     //You can call another method by reinitializing config and calling beginKYCFlow() as shown below
                                    prism.addConfig(new Config(myAadhaarUidaiFlow,residentUidaiAadhaarFlow,digilockerFLow))
                                    prism.beginKYCFLow()
                                }
                     }
                 }
                 
-When Aadhaar fetch is successful the callback returns the isSuccess boolean as true and when a failure happens the callback returns an isSuccess boolean as false along with the methodname. 
+When Aadhaar fetch is successful the callback returns the isSuccess boolean as true and when a failure happens the callback returns the isSuccess boolean as false along with the methodname. 
 By monitoring the method name we can identify which method was used to fetch the Aadhaar details.                  
 
 ```
