@@ -48,7 +48,7 @@ android {
 }
 dependencies {
     ....
-       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.30.0'
+       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.31.0'
 }
 ```
 
@@ -146,11 +146,21 @@ new PrismCallBack(){
                                {
                                     //Write your success logic here
                                     //the object aadhaar data contains the details
+                                    if(methodname==digilockerFLow)
+                                    {
+                                    //Make the backend API call to get digilocker data
+                                    }
+                                    else
+                                    {
+                                    Log.w("Aadhaar Data", aadhaarData.jsonString.ToString())
+                                    }
                                }
                                else
                                {
                                      //Write your failure logic here
-                                     //You can call another method by reinitializing config and calling beginKYCFlow()
+                                     //You can call another method by reinitializing config and calling beginKYCFlow() shown below
+                                   prism.addConfig(Config(myAadhaarUidaiFlow,residentUidaiAadhaarFlow,digilockerFLow))
+                                   prism.beginKYCFLow()
                                }
                     }
                 }
