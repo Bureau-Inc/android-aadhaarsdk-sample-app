@@ -48,12 +48,19 @@ android {
 }
 dependencies {
     ....
-       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.30.0'
+       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.31.0'
 }
 ```
 
 This library also uses some common android libraries. So if you are not already using them then make sure you add these libraries to your module level `build.gradle`
 - `androidx.appcompat:appcompat:1.2.0`
+
+You might need to add the following code to the application tag in Android Manifest file if Mixpanel View Crawler error shows up
+```
+<meta-data
+            android:name="com.mixpanel.android.MPConfig.DisableViewCrawler"
+            android:value="true"/>
+```          
 
 ## Initialize SDK
 
@@ -79,7 +86,7 @@ This library also uses some common android libraries. So if you are not already 
                ,your success redirection url,your failure redirection url,a boolean to indicate whether flow should be run on production configuration)
                 
             //Adding config to priortize the flows by which Aadhaar data is to be taken    
-                prism.addConfig(Config(residentUidaiAadhaarFlow, myAadhaarUidaiFlow,digilockerFLow))
+                prism.addConfig(new Config(residentUidaiAadhaarFlow, myAadhaarUidaiFlow,digilockerFLow))
                 
                 //The above order of methods can be rearranged based on priority
                 
@@ -89,9 +96,9 @@ This library also uses some common android libraries. So if you are not already 
         });
 ```
 ## Aadhaar Fetching Methods
-##1.residentUidaiAadhaarFlow - URL : "https://resident.uidai.gov.in/offline-kyc"
-##2.myAadhaarUidaiFlow - URL : "https://myaadhaar.uidai.gov.in/"
-##3.digilockerFLow
+### 1.residentUidaiAadhaarFlow - URL : "https://resident.uidai.gov.in/offline-kyc"
+### 2.myAadhaarUidaiFlow - URL : "https://myaadhaar.uidai.gov.in/"
+### 3.digilockerFLow
 
 ## Authorization 
 To Obtain your organisation's merchantId and user id, contact Bureau
@@ -146,16 +153,26 @@ new PrismCallBack(){
                                {
                                     //Write your success logic here
                                     //the object aadhaar data contains the details
+                                    if(methodname==digilockerFLow)
+                                    {
+                                    //Make the backend API call to get digilocker data
+                                    }
+                                    else
+                                    {
+                                    Log.w("Aadhaar Data", aadhaarData.jsonString.ToString())
+                                    }
                                }
                                else
                                {
                                      //Write your failure logic here
-                                     //You can call another method by reinitializing config and calling beginKYCFlow()
+                                     //You can call another method by reinitializing config and calling beginKYCFlow() as shown below
+                                   prism.addConfig(new Config(myAadhaarUidaiFlow,residentUidaiAadhaarFlow,digilockerFLow))
+                                   prism.beginKYCFLow()
                                }
                     }
                 }
                 
-When Aadhaar fetch is succesfull the callback returns the isSuccess boolean as true and when a failure happens the callback returns an isSuccess boolean as false along with the methodname. 
+When Aadhaar fetch is successful the callback returns the isSuccess boolean as true and when a failure happens the callback returns the isSuccess boolean as false along with the methodname. 
 By monitoring the method name we can identify which method was used to fetch the Aadhaar details.                  
 
 ```
