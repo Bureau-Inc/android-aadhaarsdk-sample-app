@@ -16,8 +16,8 @@ Aadhaar Offline is the only valid method to submit your Aadhaar identity to any 
 1. User is guided to the Digilocker website to submit their Aadhaar details.
 2. Input for "Aadhaar Number" are filled by the end user.
 3. On continuing
-    - [x] An OTP is received by the end user which is then auto read by the SDK. The inVOID SDK only reads the then received OTP message through the screen.
-4. Once the details entered are authenticated, the Aadhaar details are recieved
+    - [x] An OTP is received by the end user which should be entered in the next page.
+4. Once the details entered are authenticated, the Aadhaar details are recieved.
 
 ## Minimum Requirements
 - `minSdkVersion 21` 
@@ -48,7 +48,7 @@ android {
 }
 dependencies {
     ....
-       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.26.0'
+       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.29.0'
 }
 ```
 
@@ -72,14 +72,14 @@ This library also uses some common android libraries. So if you are not already 
                 new PrismCallBack(){
 
                     @Override
-                    public void onKYCFinished(Client aadhaarData, String methodname, Boolean isSuccess) {
+                    public void onKYCFinished(ClientAadhaarData aadhaarData, String methodname, Boolean isSuccess) {
                                Log.w("TAG",aadhaarData?.jsonString.toString())
                     }
                 }
-               ,your success redirection url,your failure redirection url)
+               ,your success redirection url,your failure redirection url,a boolean to indicate whether flow should be run on production configuration)
                 
             //Adding config to priortize the flows by which Aadhaar data is to be taken    
-                prism.addConfig(Config(KYC_FIRSTFLOW, KYC_SECONDFLOW,DIGILOCKERFLOW))
+                prism.addConfig(Config(residentUidaiAadhaarFlow, myAadhaarUidaiFlow,digilockerFLow))
                 
                 //The above order of methods can be rearranged based on priority
                 
@@ -89,9 +89,9 @@ This library also uses some common android libraries. So if you are not already 
         });
 ```
 ## Aadhaar Fetching Methods
-1.KYC_FIRSTFLOW
-2.KYC_SECONDFLOW
-3.DIGILOCKERFLOW
+##1.residentUidaiAadhaarFlow - URL : "https://resident.uidai.gov.in/offline-kyc"
+##2.myAadhaarUidaiFlow - URL : "https://myaadhaar.uidai.gov.in/"
+##3.digilockerFLow
 
 ## Authorization 
 To Obtain your organisation's merchantId and user id, contact Bureau
@@ -141,15 +141,21 @@ The PrismCallBack added in the initialize function retruns the data of Aadhaar
 new PrismCallBack(){
 
                     @Override
-                    public void onKYCFinished(Client aadhaarData, String methodname, Boolean isSuccess) {
-                               Log.w("Aadhaar Xml",aadhaarData.jsonString.toString())
-                               Log.w("XMLURI",aadhaarData.xmlFileUri.toString())
-                               Log.w("ZIPURI",aadhaarData.zipFileUri.toString())
-                               Log.w("ZIPURI",aadhaarData.shareCode.toString())
-                               Log.w("Excecuted Fetching Method",methodname.toString())
-                               Log.w("Aadhaar Fetched Status","" + isSuccess)
+                    public void onKYCFinished(ClientAadhaarData aadhaarData, String methodname, Boolean isSuccess) {
+                               if(isSuccess)
+                               {
+                                    //Write your success logic here
+                                    //the object aadhaar data contains the details
+                               }
+                               else
+                               {
+                                     //Write your failure logic here
+                                     //You can call another method by reinitializng config and calling beginKYCFlow()
+                               }
                     }
                 }
+                
+When Aadhaar fetch is succesfull the callback returns the isSuccess boolean as true and when a failure happens the callback returns an isSuccess boolean as false along with the methodname. By monitoring the method name we can identify which method was used to fetch the Aadhaar details.                  
 
 ```
 
