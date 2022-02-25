@@ -48,7 +48,7 @@ android {
 }
 dependencies {
     ....
-       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.29.0'
+       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.30.0'
 }
 ```
 
@@ -136,7 +136,7 @@ To Obtain your organisation's merchantId and user id, contact Bureau
 - processedJSON
 
 ```
-The PrismCallBack added in the initialize function retruns the data of Aadhaar 
+The PrismCallBack added in the initialize function retruns whether the we have successfuly fetched details or not 
 
 new PrismCallBack(){
 
