@@ -88,10 +88,10 @@ This library also uses some common android libraries. So if you are not already 
             }
         });
 ```
-## Aadhaar Fetching Methods
-## 1.residentUidaiAadhaarFlow - URL : "https://resident.uidai.gov.in/offline-kyc"
-## 2.myAadhaarUidaiFlow - URL : "https://myaadhaar.uidai.gov.in/"
-## 3.digilockerFLow
+# Aadhaar Fetching Methods
+# 1.residentUidaiAadhaarFlow - URL : "https://resident.uidai.gov.in/offline-kyc"
+# 2.myAadhaarUidaiFlow - URL : "https://myaadhaar.uidai.gov.in/"
+# 3.digilockerFLow
 
 ## Authorization 
 To Obtain your organisation's merchantId and user id, contact Bureau
