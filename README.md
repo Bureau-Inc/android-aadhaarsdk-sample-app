@@ -48,7 +48,7 @@ android {
 }
 dependencies {
     ....
-       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.29.0'
+       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.30.0'
 }
 ```
 
@@ -136,7 +136,7 @@ To Obtain your organisation's merchantId and user id, contact Bureau
 - processedJSON
 
 ```
-The PrismCallBack added in the initialize function retruns the data of Aadhaar 
+The PrismCallBack added in the initialize function retruns whether the we have successfuly fetched details or not 
 
 new PrismCallBack(){
 
@@ -150,12 +150,13 @@ new PrismCallBack(){
                                else
                                {
                                      //Write your failure logic here
-                                     //You can call another method by reinitializng config and calling beginKYCFlow()
+                                     //You can call another method by reinitializing config and calling beginKYCFlow()
                                }
                     }
                 }
                 
-When Aadhaar fetch is succesfull the callback returns the isSuccess boolean as true and when a failure happens the callback returns an isSuccess boolean as false along with the methodname. By monitoring the method name we can identify which method was used to fetch the Aadhaar details.                  
+When Aadhaar fetch is succesfull the callback returns the isSuccess boolean as true and when a failure happens the callback returns an isSuccess boolean as false along with the methodname. 
+By monitoring the method name we can identify which method was used to fetch the Aadhaar details.                  
 
 ```
 
