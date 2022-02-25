@@ -79,7 +79,7 @@ This library also uses some common android libraries. So if you are not already 
                ,your success redirection url,your failure redirection url,a boolean to indicate whether flow should be run on production configuration)
                 
             //Adding config to priortize the flows by which Aadhaar data is to be taken    
-                prism.addConfig(Config(residentUidaiAadhaarFlow, myAadhaarUidaiFlow,digilockerFLow))
+                prism.addConfig(new Config(residentUidaiAadhaarFlow, myAadhaarUidaiFlow,digilockerFLow))
                 
                 //The above order of methods can be rearranged based on priority
                 
@@ -159,7 +159,7 @@ new PrismCallBack(){
                                {
                                      //Write your failure logic here
                                      //You can call another method by reinitializing config and calling beginKYCFlow() shown below
-                                   prism.addConfig(Config(myAadhaarUidaiFlow,residentUidaiAadhaarFlow,digilockerFLow))
+                                   prism.addConfig(new Config(myAadhaarUidaiFlow,residentUidaiAadhaarFlow,digilockerFLow))
                                    prism.beginKYCFLow()
                                }
                     }
