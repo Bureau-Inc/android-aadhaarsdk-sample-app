@@ -34,6 +34,7 @@ allprojects {
         ...
         maven { url "https://jitpack.io" 
         //add credentials here
+        credentials { username authToken }
         }
     }
 }
@@ -52,6 +53,11 @@ dependencies {
     ....
        implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.35.0'
 }
+```
+Add the following line in your gradle.properties
+```
+
+authToken=YOUR_AUTH_TOKEN
 ```
 
 This library also uses some common android libraries. So if you are not already using them then make sure you add these libraries to your module level `build.gradle`
