@@ -51,7 +51,7 @@ android {
 }
 dependencies {
     ....
-       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.35.0'
+       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.36.0'
 }
 ```
 Add the following line in your gradle.properties
@@ -103,6 +103,10 @@ You might need to add the following code to the application tag in Android Manif
             }
         });
 ```
+#### Notes 
+##### 1.UserId and MerchantId are mandatory fields and should not be empty
+##### 2.At least 2 methods should be set as first and second priority when adding config to sdk
+
 ## Aadhaar Fetching Methods
 ### 1.residentUidaiAadhaarFlow - URL : "https://resident.uidai.gov.in/offline-kyc" - Data available in SDK 
 ### 2.myAadhaarUidaiFlow - URL : "https://myaadhaar.uidai.gov.in/" - Data available in SDK 
