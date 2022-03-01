@@ -104,7 +104,7 @@ You might need to add the following code to the application tag in Android Manif
         });
 ```
 #### Notes 
-##### 1.UserId and MerchantId are mandatory fields and should not be empty
+##### 1.UserId and MerchantId are mandatory fields and should not be empty. UserId is a unique string that represents each unique user trying the flow.
 ##### 2.At least 2 methods should be set as first and second priority when adding config to sdk
 
 ## Aadhaar Fetching Methods
@@ -116,7 +116,7 @@ You might need to add the following code to the application tag in Android Manif
 To Obtain your organisation's merchantId contact Bureau. 
 
 ## UserTracking 
-UserId can be used to call Bureau backend API to fetch data regarding user. It should be unique string in nature. For each KYC flow the userId should be uniquely generated. 
+UserId can be used to call Bureau backend API to fetch data regarding user. It should be unique string in nature. For each KYC flow the userId should be uniquely generated. It can be mobile number or any email associated to a user also. 
 
 ## Customization 
 - To customize the theme of the activity use following theme in your `styles.xml` file
