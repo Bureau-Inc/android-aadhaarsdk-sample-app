@@ -6,6 +6,27 @@
     android:layout_height="match_parent"
     tools:context="com.prism.android.prism_android_sdkdemo_app.MainActivity">
 
+    <EditText
+        android:id="@+id/merchant_id_edit"
+        android:hint="Enter Merchant ID"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button1"
+        android:layout_marginStart="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <EditText
+        android:id="@+id/user_id_edit"
+        android:hint="Enter User ID"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"        app:layout_constraintBottom_toTopOf="@id/button1"
+        android:layout_marginEnd="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
@@ -38,5 +59,23 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button1" />
+
+    <Button
+        android:id="@+id/init_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="Initialize SDK"
+        app:layout_constraintBottom_toTopOf="@id/button1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/merchant_id_edit" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/aadhaar_flow_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="button1,button2,button3"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
