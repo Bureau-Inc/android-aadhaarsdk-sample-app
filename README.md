@@ -1,8 +1,9 @@
-# prism-android-sdk-demo-app
-Enables your user to download compliant UIDAI Aadhaar XML inside your existing Android App
+# Aadhaar verification - Prism SDK User Guide 
+Enables your user to download compliant UIDAI Aadhaar XML inside your existing Android App using offline aadhaar verification as well allows for digilocker verification method. 
 
-This SDK (Android) provides a set of screens and functionality to let your user download their Aadhaar XML inside your Android Application itself. This reduces customer drop off as they do not need to navigate to UIDAI Aadhaar Website to download the same.
-Aadhaar Offline is the only valid method to submit your Aadhaar identity to any RBI Regulated Entity in order to complete KYC. The Bureau SDK provides an easy to use Verification suite which will enable the most seamless customer onboarding.
+This SDK (Android) provides a set of screens and functionality to let your user complete Android Application itself. This reduces customer drop off as they do not need to navigate to UIDAI Aadhaar Website to download the same.
+
+Aadhaar Offline or Digilocker is the only valid method to submit your Aadhaar identity to any RBI Regulated Entity in order to complete KYC. The Bureau SDK provides an easy to use Verification suite which will enable the most seamless customer onboarding.
 
 ## Steps in the SDK
 **For the Aadhaar Flow**
@@ -17,7 +18,8 @@ Aadhaar Offline is the only valid method to submit your Aadhaar identity to any 
 2. Input for "Aadhaar Number" are filled by the end user.
 3. On continuing
     - [x] An OTP is received by the end user which should be entered in the next page.
-4. Once the details entered are authenticated, the Aadhaar details are recieved.
+4. Once the details entered are authenticated, the Aadhaar details are recieved by bureau backend server. 
+5. App backend server will make an API call to bureau backend server and fetch the details of the user.  
 
 ## Minimum Requirements
 - `minSdkVersion 21` 
@@ -32,6 +34,7 @@ allprojects {
         ...
         maven { url "https://jitpack.io" 
         //add credentials here
+        credentials { username authToken }
         }
     }
 }
@@ -48,8 +51,13 @@ android {
 }
 dependencies {
     ....
-       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.32.0'
+       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.35.0'
 }
+```
+Add the following line in your gradle.properties
+```
+
+authToken=jp_2itmtuvitbb7gnhit254mupl4e
 ```
 
 This library also uses some common android libraries. So if you are not already using them then make sure you add these libraries to your module level `build.gradle`
@@ -72,36 +80,39 @@ You might need to add the following code to the application tag in Android Manif
             public void onClick(View v) {
             
             //instantiate your prism 
-            prism = PrismInstanceProvider.getInstance(context,activity)
+            prism = PrismInstanceProvider.getInstance(context,activity);
             
-            //Initialize your prism
+            //Initialize your prism only once
                prism.initialize(your merchantId,your user id,
                 new PrismCallBack(){
 
                     @Override
-                    public void onKYCFinished(ClientAadhaarData aadhaarData, String methodname, Boolean isSuccess) {
-                               Log.w("TAG",aadhaarData?.jsonString.toString())
+                    public void onKYCFinished(ClientAadhaarData aadhaarData, String methodName, Boolean isSuccess,String errorType) {
+                               Log.w("Aadhaar Data",aadhaarData.getJsonString.toString())
                     }
                 }
-               ,your success redirection url,your failure redirection url,a boolean to indicate whether flow should be run on production configuration)
+               ,your success redirection url,your failure redirection url,a boolean to indicate whether flow should be run on production configuration);
                 
-            //Adding config to priortize the flows by which Aadhaar data is to be taken    
-                prism.addConfig(new Config(residentUidaiAadhaarFlow, myAadhaarUidaiFlow,digilockerFlow))
+            //Adding config to priortize the flows by which Aadhaar data is to be taken can be added multiple times    
+                prism.addConfig(new Config(residentUidaiAadhaarFlow, myAadhaarUidaiFlow,digilockerFlow));
                 
                 //The above order of methods can be rearranged based on priority
                 
            //KYC initiate call
-           prism.beginKYCFLow()
+           prism.beginKYCFLow();
             }
         });
 ```
 ## Aadhaar Fetching Methods
-### 1.residentUidaiAadhaarFlow - URL : "https://resident.uidai.gov.in/offline-kyc"
-### 2.myAadhaarUidaiFlow - URL : "https://myaadhaar.uidai.gov.in/"
-### 3.digilockerFlow
+### 1.residentUidaiAadhaarFlow - URL : "https://resident.uidai.gov.in/offline-kyc" - Data available in SDK 
+### 2.myAadhaarUidaiFlow - URL : "https://myaadhaar.uidai.gov.in/" - Data available in SDK 
+### 3.digilockerFlow - Data available in backend API call. 
 
 ## Authorization 
-To Obtain your organisation's merchantId and user id, contact Bureau
+To Obtain your organisation's merchantId contact Bureau. 
+
+## UserTracking 
+UserId can be used to call Bureau backend API to fetch data regarding user. It should be unique string in nature. For each KYC flow the userId should be uniquely generated. 
 
 ## Customization 
 - To customize the theme of the activity use following theme in your `styles.xml` file
@@ -142,41 +153,82 @@ To Obtain your organisation's merchantId and user id, contact Bureau
 - share code to open zip file
 - processedJSON
 
+The PrismCallBack added in the initialize function retrun's whether we have successfuly fetched details or not 
+
 ```
-The PrismCallBack added in the initialize function retruns whether the we have successfuly fetched details or not 
 
 new PrismCallBack(){
 
                     @Override
-                    public void onKYCFinished(ClientAadhaarData aadhaarData, String methodname, Boolean isSuccess) {
+                    public void onKYCFinished(ClientAadhaarData aadhaarData, String methodName, Boolean isSuccess,String errorType) {
                                if(isSuccess)
                                {
                                     //Write your success logic here
                                     //the object aadhaar data contains the details
-                                    if(methodname==digilockerFlow)
+                                    //errorType will be empty here
+                                    if(methodName==digilockerFlow)
                                     {
                                     //Make the backend API call to get digilocker data
                                     }
                                     else
                                     {
-                                    Log.d("Aadhaar Data", aadhaarData.jsonString.ToString())
-                                    Log.d("XML File Uri", aadhaarData.xmlFileUri().toString());
-                                    Log.d("Aadhaar Data", aadhaarData.zipFileUri().toString());
-                                    Log.d("Aadhaar Data", aadhaarData.shareCode.toString());
+                                    Log.d("Aadhaar Data", aadhaarData.getJsonString.ToString());
+                                    Log.d("XML File Uri", aadhaarData.getXmlFileUri().toString());
+                                    Log.d("Aadhaar Data", aadhaarData.getZipFileUri().toString());
+                                    Log.d("Aadhaar Data", aadhaarData.getShareCode.toString());
                                     }
                                }
                                else
-                               {
+                               {     //Check errorType here
+                                      if(errorType== ENDPOINTS_DOWN)
+                                        Log.w("Aadhaar Error","No endpoints Available")
+                                      else if(errorType== INVOID_AUTH_ERROR)
+                                        Log.w("Aadhaar Error","Not authorized")
+                                      else if(errorType== DIGILOCKER_ERROR)
+                                        Log.w("Aadhaar Error","Digilocker Site error")
+                                      else if(errorType== UIDAI_ERROR)
+                                        Log.w("Aadhaar Error","UIDAI Site Error")
+                                      else if(errorType== INTERNET_ERROR)
+                                        Log.w("Aadhaar Error","Intenet Error")
+                                      else if(errorType== SDK_ERROR)
+                                        Log.w("Aadhaar Error","SDK Error")
+                                      else if(errorType== USER_CANCELLED)
+                                         Log.w("Aadhaar Error","Cancelled by user")
+                                         
+                                         
+                            
                                      //Write your failure logic here
                                      //You can call another method by reinitializing config and calling beginKYCFlow() as shown below
-                                   prism.addConfig(new Config(myAadhaarUidaiFlow,residentUidaiAadhaarFlow,digilockerFlow))
-                                   prism.beginKYCFLow()
+                                   prism.addConfig(new Config(myAadhaarUidaiFlow,residentUidaiAadhaarFlow,digilockerFlow));
+                                   prism.beginKYCFLow();
                                }
                     }
                 }
                 
-When Aadhaar fetch is successful the callback returns the isSuccess boolean as true and when a failure happens the callback returns the isSuccess boolean as false along with the methodname. 
-By monitoring the method name we can identify which method was used to fetch the Aadhaar details.                  
 
 ```
+
+When Aadhaar fetch is successful the callback returns the isSuccess boolean as true and when a failure happens the callback returns the isSuccess boolean as false along with the methodName. 
+By monitoring the method name we can identify which method was used to fetch the Aadhaar details.                  
+
+
+## Backend API call to get data for a user completing the digilocker flow
+
+UserId and AuthHeader will have to be replaced in the requests below. 
+
+In staging 
+
+```
+curl --location --request GET 'https://api.overwatch.stg.bureau.id/v1/id/UserId/suppliers/offline-aadhaar' \
+--header 'Authorization: Basic AuthHeader'
+
+```
+In production 
+
+```
+curl --location --request GET 'https://api.overwatch.bureau.id/v1/id/UserId/suppliers/offline-aadhaar' \
+--header 'Authorization: Basic AuthHeader'
+
+```
+
 
