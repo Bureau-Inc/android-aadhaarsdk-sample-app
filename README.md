@@ -51,7 +51,7 @@ android {
 }
 dependencies {
     ....
-       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.37.0'
+       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.41.0'
 }
 ```
 Add the following line in your gradle.properties
@@ -83,7 +83,7 @@ You might need to add the following code to the application tag in Android Manif
             prism = PrismInstanceProvider.getInstance(context,activity);
             
             //Initialize your prism only once
-               prism.initialize(your merchantId,your user id,
+               prism.initialize(your credentialId,your user id,
                 new PrismCallBack(){
 
                     @Override
@@ -113,7 +113,7 @@ You might need to add the following code to the application tag in Android Manif
 ### 3.digilockerFlow - Data available in backend API call. 
 
 ## Authorization 
-To Obtain your organisation's merchantId contact Bureau. 
+To Obtain your organisation's credentialId contact Bureau. 
 
 ## UserTracking 
 UserId can be used to call Bureau backend API to fetch data regarding user. It should be unique string in nature. For each KYC flow the userId should be uniquely generated. It can be mobile number or any email associated to a user also. 
