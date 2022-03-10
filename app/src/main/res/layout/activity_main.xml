@@ -8,7 +8,7 @@
 
     <EditText
         android:id="@+id/merchant_id_edit"
-        android:hint="Enter Merchant ID"
+        android:hint="Enter Credential Id"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
