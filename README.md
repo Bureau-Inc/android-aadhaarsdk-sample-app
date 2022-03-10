@@ -51,7 +51,7 @@ android {
 }
 dependencies {
     ....
-       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.36.0'
+       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.37.0'
 }
 ```
 Add the following line in your gradle.properties
