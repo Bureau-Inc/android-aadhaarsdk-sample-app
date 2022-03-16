@@ -35,10 +35,10 @@
         android:layout_height="wrap_content"
         android:textAllCaps="false"
         android:text="Start KYC Aadhaar Ist flow"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/init_button" />
 
     <Button
         android:id="@+id/button2"
@@ -68,10 +68,11 @@
         android:layout_height="wrap_content"
         android:textAllCaps="false"
         android:text="Initialize SDK"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toTopOf="@id/button1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/merchant_id_edit" />
+        app:layout_constraintTop_toBottomOf="@id/button" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/aadhaar_flow_group"
@@ -79,5 +80,17 @@
         android:layout_height="match_parent"
         android:visibility="invisible"
         app:constraint_referenced_ids="button1,button2,button3"/>
+
+    <Button
+        app:layout_constraintTop_toBottomOf="@id/user_id_edit"
+        app:layout_constraintStart_toStartOf="@id/user_id_edit"
+        app:layout_constraintEnd_toEndOf="@id/user_id_edit"
+        android:id="@+id/button"
+        android:text="Set Environment to Production"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

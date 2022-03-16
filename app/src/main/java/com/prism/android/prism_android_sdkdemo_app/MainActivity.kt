@@ -6,11 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.Group
+import androidx.core.view.get
 import com.prism.android.prismandroidnativesdk.PrismCallBack
 import com.prism.android.prismandroidnativesdk.PrismEntryPoint
 import com.prism.android.prismandroidnativesdk.PrismInstanceProvider
@@ -23,11 +22,24 @@ class MainActivity : AppCompatActivity() {
     private var alertDialog:AlertDialog.Builder?=null
     private var merchantId = ""
     private var userId = ""
+    private var isProduction:Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         alertDialog = AlertDialog.Builder(this)
         prism = PrismInstanceProvider.getInstance(this, this)
+        var button  = findViewById<Button>(R.id.button)
+        button.setOnClickListener {
+            isProduction = !isProduction
+            if(isProduction)
+            {
+                button.text = "Set Environment to Staging"
+            }
+            else
+            {
+                button.text = "Set Environment to Production"
+            }
+        }
         findViewById<Button>(R.id.init_button).setOnClickListener {
             merchantId = findViewById<EditText>(R.id.merchant_id_edit).text.toString().trim()
             userId = findViewById<EditText>(R.id.user_id_edit).text.toString().trim()
@@ -66,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                     },
                     "https://en3yadd32v3d97l.m.pipedream.net/",
                     "https://en3yadd32v3d97l.m.pipedream.net/",
-                    false
+                    isProduction
                 )
                 findViewById<Group>(R.id.aadhaar_flow_group).visibility= View.VISIBLE
             }
@@ -141,5 +153,6 @@ class MainActivity : AppCompatActivity() {
           })?.setNegativeButton("No",null)?.setIcon(android.R.drawable.ic_dialog_alert)?.show()
       }
     }
+
 
 }
