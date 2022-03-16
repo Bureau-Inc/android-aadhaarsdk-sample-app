@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity() {
                     isProduction
                 )
                 findViewById<Group>(R.id.aadhaar_flow_group).visibility= View.VISIBLE
+                button.visibility = View.INVISIBLE
             }
             else
             {
