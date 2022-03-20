@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                     },
                     "https://en3yadd32v3d97l.m.pipedream.net/",
                     "https://en3yadd32v3d97l.m.pipedream.net/",
-                    isProduction
+                    isProduction,PrismCustomisation.Builder().toolBarTitle("PrismDemoAadhaar").hideToolbar(true).build()
                 )
                 findViewById<Group>(R.id.aadhaar_flow_group).visibility= View.VISIBLE
                 button.visibility = View.INVISIBLE

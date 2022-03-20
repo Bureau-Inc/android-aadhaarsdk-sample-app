@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PrismAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="PrismAppTheme.Custom">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!--        <item name="android:windowTranslucentStatus">true</item>-->
+        <!--        <item name="android:statusBarColor">@android:color/white</item>-->
+        <!--        <item name="android:windowLightStatusBar">true</item>-->
+    </style>
+
+    <style name="PrismToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="android:background">@drawable/invoid_button_bg</item>
+
+    </style>
+    <!--    <style name="InvoidAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
+
+    <style name="Prism.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="PrismWidgetTextViewHeading">
+        <item name="android:textSize">@dimen/invoidHeadingTextSize</item>
+        <item name="android:textColor">@color/invoidHeadingTextColor</item>
+    </style>
+
+    <style name="PrismWidgetTextViewHeadingBold">
+        <item name="android:textSize">@dimen/invoidHeadingTextSize</item>
+        <item name="android:textColor">@color/invoidHeadingTextColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="PrismButtonTheme" parent="@android:style/Widget.Button">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:shadowColor">#FF000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">-1</item>
+        <item name="android:shadowRadius">0.2</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+
+</resources>
