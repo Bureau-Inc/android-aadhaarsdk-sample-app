@@ -51,7 +51,7 @@ android {
 }
 dependencies {
     ....
-       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.43.0'
+       implementation 'com.github.Bureau-Inc:prism-android-native-sdk:0.50.0'
 }
 ```
 Add the following line in your gradle.properties
@@ -91,7 +91,9 @@ You might need to add the following code to the application tag in Android Manif
                                Log.w("Aadhaar Data",aadhaarData.getJsonString.toString())
                     }
                 }
-               ,your success redirection url,your failure redirection url,a boolean to indicate whether flow should be run on production configuration);
+               ,your success redirection url,your failure redirection url,a boolean to indicate whether flow should be run on production configuration,
+               PrismCustomisation.Builder().build());
+               //You can Add customisation to SDK's UI by adding values to PrismCustomisation Builder
                 
             //Adding config to priortize the flows by which Aadhaar data is to be taken can be added multiple times    
                 prism.addConfig(new Config(residentUidaiAadhaarFlow, myAadhaarUidaiFlow,digilockerFlow));
@@ -118,27 +120,31 @@ To Obtain your organisation's credentialId contact Bureau.
 ## UserTracking 
 UserId can be used to call Bureau backend API to fetch data regarding user. It should be unique string in nature. For each KYC flow the userId should be uniquely generated. It can be mobile number or any email associated to a user also. 
 
-## Customization 
+## SDK Customization 
 - To customize the theme of the activity use following theme in your `styles.xml` file
     ```
-    <style name="InvoidAppTheme.Custom">
+    <style name="PrismAppTheme">
         ...
+        <!--Add Theme Customisation here-->
     </style>
     
-    <!--To make text in ActionBar dark, use this. Dark text is default-->
-    <style name="InvoidAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    
-    <!--To make text in ActionBar white, use this.-->
-    <style name="InvoidAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
-    ```   
-- Following colors are customizable. Add them in your `colors.xml`  
-    ```
-    <!--Customize color of action bar in Activity-->
-    <color name="invoidActionBarColor">@color/yourColor</color> 
-    
-    <!--Customize color of buttons in Activity-->
-    <color name="invoidButtonColor">@color/yourColor</color> 
-    ```  
+    <!--To add customisation to toolbar in SDK's activity add the following style-->
+    <style name="PrismToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="android:background">@drawable/invoid_button_bg</item>
+
+    </style>
+    <!--To add customisation to buttons in SDK add the following style-->
+    <style name="PrismButtonTheme" parent="@android:style/Widget.Button">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:shadowColor">#FF000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">-1</item>
+        <item name="android:shadowRadius">0.2</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 - Error message show to the user can be customized by defining following strings in your `strings.xml` file
     ```
     <!--Error message shown in case of OfflineAadhaarHelper.UIDAI_ERROR-->
@@ -150,6 +156,16 @@ UserId can be used to call Bureau backend API to fetch data regarding user. It s
     <!--Error message shown in case of OfflineAadhaarHelper.INTERNET_ERROR-->
     <string name="invoid_check_internet_error">Please check your internet connection</string>
     ```
+### Code Customisations
+  ```     
+  //Add Prism Customisation values to builder and add it to initialize function
+ new PrismCustomisation.Builder()
+ .toolBarTitle(YOUR_CUSTOM_TEXT) // adds a custom title to toolbar
+ .hideToolbar(true) // TO show or hide toolbar in SDK's UI(The default is show)
+ .build()
+ 
+```  
+    
 
 ## Response returned from the SDK
 - xml file uri
