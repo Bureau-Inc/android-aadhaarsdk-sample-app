@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.Group
-import androidx.core.view.get
 import com.prism.android.prismandroidnativesdk.PrismCallBack
 import com.prism.android.prismandroidnativesdk.PrismEntryPoint
 import com.prism.android.prismandroidnativesdk.PrismInstanceProvider
