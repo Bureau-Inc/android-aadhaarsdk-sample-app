@@ -57,7 +57,7 @@ dependencies {
 Add the following line in your gradle.properties
 ```
 
-authToken=jp_2itmtuvitbb7gnhit254mupl4e
+authToken=YOUR_AUTH_TOKEN
 ```
 
 This library also uses some common android libraries. So if you are not already using them then make sure you add these libraries to your module level `build.gradle`
